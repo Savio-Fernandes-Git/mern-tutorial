@@ -1,9 +1,14 @@
 // imports
 const express = require("express");
+//to help print different colors in the console
+const colors = require("colors");
 //allows us to have a dotenv file with our config in it
 const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware");
+const connectDB = require("./config/db");
 const port = process.env.PORT || 5000;
+
+connectDB();
 
 const app = express();
 
