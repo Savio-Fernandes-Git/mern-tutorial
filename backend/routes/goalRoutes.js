@@ -9,13 +9,10 @@ const {
     deleteGoal,
 } = require("../controllers/goalController");
 
-router.get("/", getGoals());
+// cleaning up redundant routes with different HTTP methods
+router.route("/").get(getGoals).post(setGoal);
 
-router.post("/", setGoal());
-
-router.put("/:id", updateGoal());
-
-router.delete("/:id", deleteGoal());
+router.route("/:id").put(updateGoal).delete(deleteGoal);
 
 // exports
 module.exports = router;
