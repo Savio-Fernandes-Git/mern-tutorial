@@ -16,7 +16,7 @@ const loginUser = (req, res) => {
 // @route GET /api/users/me
 // @access Public
 const getMe = (req, res) => {
-    res.json({ message: "Register user" });
+    res.json({ message: "User data display" });
 };
 
 module.exports = {
