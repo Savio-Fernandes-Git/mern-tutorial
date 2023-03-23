@@ -1,5 +1,7 @@
 // imports
 const express = require("express");
+
+const cors = require("cors");
 //to help print different colors in the console
 const colors = require("colors");
 //allows us to have a dotenv file with our config in it
@@ -13,6 +15,7 @@ connectDB();
 const app = express();
 
 //Middleware section
+app.use(cors());
 app.use(express.json()); //sets eveything to JSON
 app.use(express.urlencoded({ extended: false }));
 

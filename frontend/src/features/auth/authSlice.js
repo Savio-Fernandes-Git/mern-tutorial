@@ -44,7 +44,7 @@ export const authSlice = createSlice({
             state.message = "";
         },
     },
-    // thunk functions go here
+    // thunk functions go here (async API calls & other ASYNC stuff)
     extraReducers: (builder) => {
         //when register function is loading, fullfilled and rejected
         builder
