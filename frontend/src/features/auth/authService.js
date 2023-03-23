@@ -1,10 +1,9 @@
 import axios from "axios";
 
-//base API to call users
-axios.defaults.baseURL = process.env.API_URL;
+const API_URL = "/api/users"
 
 const register = async (userData) => {
-    const response = await axios.post(`http://localhost:5000/api/users`, userData);
+    const response = await axios.post(API_URL, userData);
     if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
     }
