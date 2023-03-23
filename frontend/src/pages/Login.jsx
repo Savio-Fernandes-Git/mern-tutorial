@@ -4,10 +4,10 @@ import { FaSignInAlt } from "react-icons/fa";
 const Login = () => {
     const [formData, setFormData] = useState({
         email: "",
-        password1: "",
+        password: "",
     });
 
-    const { email, password1 } = formData;
+    const { email, password } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -46,7 +46,7 @@ const Login = () => {
                             className="form-control"
                             id="password"
                             name="password"
-                            value={password1}
+                            value={password}
                             placeholder="Enter your password"
                             onChange={onChange}
                         />

@@ -30,9 +30,28 @@ export const register = createAsyncThunk(
     }
 );
 
+//logout (action)
 export const logout = createAsyncThunk("auth/logout", async () => {
     await authService.logout();
 });
+
+// login user (actionF)
+export const login = createAsyncThunk(
+    "auth/login",
+    async (user, thunkAPI) => {
+        try {
+            return await authService.login(user);
+        } catch (error) {
+            // will check if theres an error and put it in const message
+            const message =
+                (error && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toSting();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
 
 export const authSlice = createSlice({
     name: "auth",
