@@ -29,7 +29,6 @@ const Login = () => {
 
         if (isSuccess || user) {
             navigate("/");
-            console.log("successful login");
         }
 
         dispatch(reset());
@@ -41,7 +40,7 @@ const Login = () => {
             [e.target.name]: e.target.value,
         }));
     };
-    
+
     const onSubmit = (e) => {
         e.preventDefault();
 
