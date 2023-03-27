@@ -11,6 +11,31 @@ const getGoals = asyncHandler(async (req, res) => {
     res.status(200).json(goals);
 });
 
+// @desc Get goal
+// @route GET /api/goals/:id
+// @access Private
+const getGoal = asyncHandler(async (req, res) => {
+    const goal = await Goal.findById(req.params.id);
+    if (!goal) {
+        res.status(400);
+        throw new Error("Goal not found");
+    }
+
+    // Check if user exists
+    if (!req.user) {
+        res.status(401);
+        throw new Error("User not found");
+    }
+
+    // make sure logged in user matches thhe goal user
+    if (goal.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error("User not authorized");
+    }
+
+    res.status(200).json(goal);
+});
+
 // @desc Set goal
 // @route POST /api/goals
 // @access Private
@@ -90,6 +115,7 @@ const deleteGoal = asyncHandler(async (req, res) => {
 
 module.exports = {
     getGoals,
+    getGoal,
     setGoal,
     updateGoal,
     deleteGoal,

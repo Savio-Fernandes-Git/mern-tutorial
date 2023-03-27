@@ -4,6 +4,7 @@ const router = express.Router();
 
 const {
     getGoals,
+    getGoal,
     setGoal,
     updateGoal,
     deleteGoal,
@@ -16,6 +17,7 @@ router.route("/").get(protectRoute, getGoals).post(protectRoute, setGoal);
 
 router
     .route("/:id")
+    .get(protectRoute, getGoal)
     .put(protectRoute, updateGoal)
     .delete(protectRoute, deleteGoal);
 
