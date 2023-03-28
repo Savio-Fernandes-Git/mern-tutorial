@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import GoalForm from "../components/GoalForm";
 import Spinner from "../components/Spinner";
@@ -46,7 +46,9 @@ const Dashboard = () => {
                     {goals.length > 0 ? (
                         <div className="goals">
                             {goals.map((goal) => (
-                                <GoalItem key={goal._id} goal={goal} />
+                                <Link to={`goals/${goal._id}`} key={goal._id}>
+                                    <GoalItem key={goal._id} goal={goal} />
+                                </Link>
                             ))}
                         </div>
                     ) : (

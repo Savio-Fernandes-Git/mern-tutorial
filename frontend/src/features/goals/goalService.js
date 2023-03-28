@@ -22,6 +22,16 @@ const getGoals = async (token) => {
     return response.data;
 };
 
+const getGoal = async (goalId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.get(API_URL + goalId, config);
+    return response.data;
+};
+
 const deleteGoal = async (goalId, token) => {
     const config = {
         headers: {
@@ -32,11 +42,23 @@ const deleteGoal = async (goalId, token) => {
     return response.data;
 };
 
+const putGoal = async (goalData, goalId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.put(API_URL + goalId, goalData, config);
+    return response.data;
+};
+
 // use this to export whatever we want
 const goalService = {
     createGoal,
+    getGoal,
     getGoals,
     deleteGoal,
+    putGoal,
 };
 
 export default goalService;

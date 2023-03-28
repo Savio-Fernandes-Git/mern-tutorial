@@ -3,6 +3,8 @@ import goalService from "./goalService";
 
 const initialState = {
     goals: [],
+    goal: null,
+    singleGoal: null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -28,6 +30,25 @@ export const createGoal = createAsyncThunk(
     }
 );
 
+// action: get one goal
+export const getGoal = createAsyncThunk(
+    "goals/getGoal",
+    async (id, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token;
+            return await goalService.getGoal(id, token);
+        } catch (error) {
+            // will check if theres an error and put it in const message
+            const message =
+                (error && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 //get user goals (action)
 export const getGoals = createAsyncThunk(
     "goals/getAll",
@@ -37,6 +58,24 @@ export const getGoals = createAsyncThunk(
             return await goalService.getGoals(token);
         } catch (error) {
             // will check if theres an error and put it in const message
+            const message =
+                (error && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+//update user goal
+export const updateGoal = createAsyncThunk(
+    "goals/update",
+    async (goalData, id, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState;
+            return await goalService.putGoal(goalData, id, token);
+        } catch (error) {
             const message =
                 (error && error.response.data && error.response.data.message) ||
                 error.message ||
@@ -116,6 +155,36 @@ export const goalSlice = createSlice({
                 );
             })
             .addCase(deleteGoal.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(updateGoal.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateGoal.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.goals = state.goals.filter(
+                    (goal) => goal._id !== action.payload.id
+                );
+            })
+            .addCase(updateGoal.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getGoal.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getGoal.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.goals = action.payload;
+                state.goal = action.payload;
+                state.singleGoal = action.payload;
+            })
+            .addCase(getGoal.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
