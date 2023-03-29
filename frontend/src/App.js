@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from './components/Header';
-import SingleGoalItem from './components/SingleGoalItem';
+import GoalDetails from './components/GoalDetails';
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/goals/:id" element={<SingleGoalItem />} />
+                        <Route path="/goals/:id" element={<GoalDetails />} />
                     </Routes>
                 </div>
             </Router>

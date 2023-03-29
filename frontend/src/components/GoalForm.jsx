@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createGoal } from "../features/goals/goalSlice";
 
-const GoalForm = () => {
+const GoalForm = ({formText}) => {
     const [text, setText] = useState("");
 
     const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const GoalForm = () => {
                         Add Goal
                     </button>
                 </div>
+                <div>{formText}</div>
             </form>
         </section>
     );

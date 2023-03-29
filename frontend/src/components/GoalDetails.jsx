@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getGoal, reset } from "../features/goals/goalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "./Spinner";
+import { FaPencilAlt } from "react-icons/fa";
+import GoalForm from "./GoalForm";
 
-const SingleGoalItem = () => {
+const GoalDetails = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [editMode, setEditMode] = useState(false);
 
     const { id } = useParams();
     const { user } = useSelector((state) => state.auth);
@@ -18,9 +21,9 @@ const SingleGoalItem = () => {
         if (!user) {
             navigate("/login");
         } else {
-            if (id) {
+            // if (id) {
                 dispatch(getGoal(id));
-            }
+            // }
         }
 
         if (isError) {
@@ -38,10 +41,18 @@ const SingleGoalItem = () => {
         <>
             <h2>Goal page</h2>
             <p>{goals.text}</p>
-            {/* <p>{singleGoal.text}</p> */}
-            {/* <p>{goal.text}</p>   */}
+            <FaPencilAlt
+                onClick={() => {
+                    if (editMode) {
+                        setEditMode(false);
+                    } else {
+                        setEditMode(true);
+                    }
+                }}
+            />
+            {editMode && <GoalForm formText={goals.text}/>}
         </>
     );
 };
 
-export default SingleGoalItem;
+export default GoalDetails;
