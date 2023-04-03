@@ -74,13 +74,12 @@ export const updateGoal = createAsyncThunk(
     async (goalData, id, thunkAPI) => {
         try {
             const token = thunkAPI.getState;
-            return await goalService.putGoal(goalData, id, token);
+            return await goalService.updateGoal(goalData, id, token);
         } catch (error) {
             const message =
                 (error && error.response.data && error.response.data.message) ||
                 error.message ||
                 error.toString();
-
             return thunkAPI.rejectWithValue(message);
         }
     }
@@ -165,9 +164,7 @@ export const goalSlice = createSlice({
             .addCase(updateGoal.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.goals = state.goals.filter(
-                    (goal) => goal._id !== action.payload.id
-                );
+                state.goals = action.payload;
             })
             .addCase(updateGoal.rejected, (state, action) => {
                 state.isLoading = false;
@@ -181,8 +178,6 @@ export const goalSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.goals = action.payload;
-                state.goal = action.payload;
-                state.singleGoal = action.payload;
             })
             .addCase(getGoal.rejected, (state, action) => {
                 state.isLoading = false;

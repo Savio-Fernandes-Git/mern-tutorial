@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createGoal } from "../features/goals/goalSlice";
+import { createGoal, updateGoal } from "../features/goals/goalSlice";
 
-const GoalForm = ({formText}) => {
+const GoalForm = ({ formText, id }) => {
     const [text, setText] = useState("");
+
+    useEffect(() => {
+        if (formText !== "") {
+            setText(formText);
+        }
+    }, [formText]);
 
     const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        dispatch(createGoal({ text }));
-        setText("");
+        if (id) {
+            console.log(text);
+            dispatch(updateGoal({ text }));
+        } else {
+            dispatch(createGoal({ text }));
+            setText("");
+        }
     };
 
     return (
@@ -29,10 +39,9 @@ const GoalForm = ({formText}) => {
                 </div>
                 <div className="form-group">
                     <button className="btn btn-block" type="submit">
-                        Add Goal
+                        {id ? "Update Goal" : "Add Goal"}
                     </button>
                 </div>
-                <div>{formText}</div>
             </form>
         </section>
     );

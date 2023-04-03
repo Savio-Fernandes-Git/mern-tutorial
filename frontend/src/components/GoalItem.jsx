@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteGoal } from "../features/goals/goalSlice";
 
 const GoalItem = ({ goal }) => {
@@ -7,7 +8,9 @@ const GoalItem = ({ goal }) => {
     return (
         <div className="goal">
             <div>{new Date(goal.createdAt).toLocaleString("en-US")}</div>
-            <h3>{goal.text}</h3>
+            <Link to={`goals/${goal._id}`} key={goal._id}>
+                <h3>{goal.text}</h3>
+            </Link>
             <button
                 onClick={() => dispatch(deleteGoal(goal._id))}
                 className="close"

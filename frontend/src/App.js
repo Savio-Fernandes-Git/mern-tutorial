@@ -20,6 +20,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/goals/:id" element={<GoalDetails />} />
+                        <Route path="/create/:id" element={<GoalDetails />} />
                     </Routes>
                 </div>
             </Router>

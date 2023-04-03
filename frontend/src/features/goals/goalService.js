@@ -42,7 +42,7 @@ const deleteGoal = async (goalId, token) => {
     return response.data;
 };
 
-const putGoal = async (goalData, goalId, token) => {
+const updateGoal = async (goalData, goalId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ const goalService = {
     getGoal,
     getGoals,
     deleteGoal,
-    putGoal,
+    updateGoal,
 };
 
 export default goalService;

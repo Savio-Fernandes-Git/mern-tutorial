@@ -21,9 +21,7 @@ const GoalDetails = () => {
         if (!user) {
             navigate("/login");
         } else {
-            // if (id) {
-                dispatch(getGoal(id));
-            // }
+            dispatch(getGoal(id));
         }
 
         if (isError) {
@@ -50,7 +48,7 @@ const GoalDetails = () => {
                     }
                 }}
             />
-            {editMode && <GoalForm formText={goals.text}/>}
+            {editMode && <GoalForm formText={goals.text} id={id} />}
         </>
     );
 };
